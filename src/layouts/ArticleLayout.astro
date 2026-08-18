@@ -19,6 +19,7 @@ interface Frontmatter {
   date: string;
   readTime: string;
   alternate: string;
+  image?: string;
   courses: Course[];
 }
 
@@ -27,7 +28,7 @@ const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 ---
 
-<BaseLayout lang={fm.lang} title={`${fm.title} — 席间`} description={fm.description} alternate={fm.alternate}>
+<BaseLayout lang={fm.lang} title={`${fm.title} — 席间`} description={fm.description} alternate={fm.alternate} image={fm.image}>
   <SiteHeader lang={fm.lang} alternate={fm.alternate} quiet />
 
   <main id="content" class="article-page">

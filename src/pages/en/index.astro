@@ -39,9 +39,10 @@ const withBase = (path: string) => `${base.replace(/\/$/, '')}/${path.replace(/^
       </div>
 
       <a class="note-card" href={withBase('/en/notes/sushi-sho/')} data-reveal>
-        <div class="note-card__plate" aria-hidden="true">
-          <span class="note-card__seal">鮨</span>
-          <span class="note-card__course">01—12</span>
+        <div class="note-card__plate">
+          <img src={withBase('/images/sushi-sho/15-toro-nigiri.jpg')} alt="Two richly marbled pieces of toro nigiri on a plate" loading="lazy" decoding="async" />
+          <span class="note-card__seal" aria-hidden="true">鮨</span>
+          <span class="note-card__course">NOTE 001</span>
         </div>
         <div class="note-card__copy">
           <div class="note-card__meta">
