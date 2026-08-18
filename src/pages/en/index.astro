@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+---
+
+<BaseLayout
+  lang="en"
+  title="At the Counter · 席间"
+  description="Bilingual notes on food, cities, and the judgments made at the counter."
+  alternate="/"
+>
+  <SiteHeader lang="en" alternate="/" />
+
+  <main id="content">
+    <section class="home-hero home-hero--en">
+      <div class="home-hero__edition">
+        <span>Field note · I</span>
+        <span>Stockholm, 2026</span>
+      </div>
+      <div class="home-hero__title">
+        <p>席间 · Notes from the counter</p>
+        <h1>How does a dish<br />arrive in a city?</h1>
+      </div>
+      <div class="counter-line" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <p class="home-hero__intro">
+        Not a chase for expensive ingredients, and not a rush to verdict. These notes follow heat, texture, seasoning and the decisions made in the room—then ask what remains.
+      </p>
+    </section>
+
+    <section class="notes-index" aria-labelledby="latest-heading">
+      <div class="section-heading">
+        <p>Latest note</p>
+        <h2 id="latest-heading">The most recent counter</h2>
+      </div>
+
+      <a class="note-card" href={withBase('/en/notes/sushi-sho/')} data-reveal>
+        <div class="note-card__plate" aria-hidden="true">
+          <span class="note-card__seal">鮨</span>
+          <span class="note-card__course">01—12</span>
+        </div>
+        <div class="note-card__copy">
+          <div class="note-card__meta">
+            <span>Stockholm</span>
+            <span>10 min</span>
+          </div>
+          <h3>The opening courses made me doubt.<br />The nigiri brought me back.</h3>
+          <p>A reversal of an omakase, somewhere between Nordic expression and Edomae discipline.</p>
+          <span class="text-link">Read the note <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+    </section>
+
+    <section class="manifesto" data-reveal>
+      <p class="manifesto__mark" aria-hidden="true">間</p>
+      <blockquote>“Let Nordic ingredients carry the place, Edomae technique hold the order, and the fish speak for itself.”</blockquote>
+      <p>These are not scorecards. They preserve uncertainty, revision, and the way a meal actually changed as it unfolded.</p>
+    </section>
+  </main>
+
+  <SiteFooter lang="en" />
+</BaseLayout>

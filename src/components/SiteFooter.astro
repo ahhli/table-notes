@@ -1,0 +1,9 @@
+---
+interface Props { lang: 'zh' | 'en' }
+const { lang } = Astro.props;
+---
+
+<footer class="site-footer">
+  <p>{lang === 'zh' ? '记录一道料理如何抵达一座城市。' : 'Notes on how a dish arrives in a city.'}</p>
+  <p class="site-footer__mark">席间 · At the Counter</p>
+</footer>

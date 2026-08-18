@@ -1,0 +1,94 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Course {
+  id: string;
+  zh: string;
+  en: string;
+}
+
+interface Frontmatter {
+  lang: 'zh' | 'en';
+  title: string;
+  eyebrow: string;
+  dek: string;
+  description: string;
+  location: string;
+  date: string;
+  readTime: string;
+  alternate: string;
+  courses: Course[];
+}
+
+const fm = Astro.props.frontmatter as Frontmatter;
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+---
+
+<BaseLayout lang={fm.lang} title={`${fm.title} — 席间`} description={fm.description} alternate={fm.alternate}>
+  <SiteHeader lang={fm.lang} alternate={fm.alternate} quiet />
+
+  <main id="content" class="article-page">
+    <header class="article-hero">
+      <div class="article-hero__ink" aria-hidden="true">
+        <span>食</span>
+      </div>
+      <div class="article-hero__content">
+        <p class="eyebrow">{fm.eyebrow}</p>
+        <h1>{fm.title}</h1>
+        <p class="article-dek">{fm.dek}</p>
+        <div class="article-meta" aria-label={fm.lang === 'zh' ? '文章信息' : 'Article information'}>
+          <span>{fm.location}</span>
+          <span>{fm.date}</span>
+          <span>{fm.readTime}</span>
+        </div>
+      </div>
+      <div class="article-hero__stroke" aria-hidden="true"></div>
+    </header>
+
+    <div class="article-shell">
+      <aside class="course-rail" aria-label={fm.lang === 'zh' ? '席间进程' : 'Course progression'}>
+        <p>{fm.lang === 'zh' ? '席间进程' : 'The progression'}</p>
+        <ol>
+          {fm.courses.map((course, index) => (
+            <li>
+              <a href={`#${course.id}`} data-course-link={course.id}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {fm.lang === 'zh' ? course.zh : course.en}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </aside>
+
+      <article class:list={["article-body", { "article-body--en": fm.lang === 'en' }]}>
+        <slot />
+      </article>
+    </div>
+
+    <nav class="article-language" aria-label={fm.lang === 'zh' ? '阅读其他语言' : 'Read in another language'}>
+      <span>{fm.lang === 'zh' ? '同一席，另一种语言' : 'The same counter, another language'}</span>
+      <a href={withBase(fm.alternate)}>
+        {fm.lang === 'zh' ? 'Read in English' : '阅读中文版'}
+      </a>
+    </nav>
+  </main>
+
+  <SiteFooter lang={fm.lang} />
+
+  <script is:inline>
+    const sections = [...document.querySelectorAll('.article-body h2[id]')];
+    const links = [...document.querySelectorAll('[data-course-link]')];
+    if (sections.length && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        links.forEach((link) => link.removeAttribute('aria-current'));
+        document.querySelector(`[data-course-link="${visible.target.id}"]`)?.setAttribute('aria-current', 'true');
+      }, { rootMargin: '-18% 0px -62% 0px', threshold: [0, 0.3, 0.8] });
+      sections.forEach((section) => observer.observe(section));
+    }
+  </script>
+</BaseLayout>

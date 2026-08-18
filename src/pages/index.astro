@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+---
+
+<BaseLayout
+  lang="zh"
+  title="席间 · At the Counter"
+  description="关于料理、城市与席间判断的双语食记。"
+  alternate="/en/"
+>
+  <SiteHeader lang="zh" alternate="/en/" />
+
+  <main id="content">
+    <section class="home-hero">
+      <div class="home-hero__edition">
+        <span>食记 · 一</span>
+        <span>Stockholm, 2026</span>
+      </div>
+      <div class="home-hero__title">
+        <p>Notes from the counter</p>
+        <h1>一道料理，<br />如何抵达一座城市。</h1>
+      </div>
+      <div class="counter-line" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <p class="home-hero__intro">
+        不追逐昂贵食材的名字，也不急着给餐厅下结论。记录火候、质地、调味与现场决定，看看一顿饭最终留下了什么。
+      </p>
+    </section>
+
+    <section class="notes-index" aria-labelledby="latest-heading">
+      <div class="section-heading">
+        <p>Latest note</p>
+        <h2 id="latest-heading">最近一席</h2>
+      </div>
+
+      <a class="note-card" href={withBase('/notes/sushi-sho/')} data-reveal>
+        <div class="note-card__plate" aria-hidden="true">
+          <span class="note-card__seal">鮨</span>
+          <span class="note-card__course">01—12</span>
+        </div>
+        <div class="note-card__copy">
+          <div class="note-card__meta">
+            <span>Stockholm</span>
+            <span>12 min</span>
+          </div>
+          <h3>前菜让我皱眉，<br />握寿司却把我救了回来</h3>
+          <p>在北欧表达与江户前基本功之间，Sushi Sho 的一顿反转式 omakase。</p>
+          <span class="text-link">阅读全文 <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+    </section>
+
+    <section class="manifesto" data-reveal>
+      <p class="manifesto__mark" aria-hidden="true">間</p>
+      <blockquote>“让北欧的食材负责地域性，让江户前的框架负责秩序，让鱼自己说话。”</blockquote>
+      <p>席间笔记，不是评分表。它保留犹豫、修正与真正发生过的味觉变化。</p>
+    </section>
+  </main>
+
+  <SiteFooter lang="zh" />
+</BaseLayout>
