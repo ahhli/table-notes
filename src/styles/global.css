@@ -9,7 +9,7 @@
   --ash: #a7a89e;
   --rule: rgba(232, 229, 218, 0.19);
   --serif-latin: 'Cormorant Garamond', 'Times New Roman', serif;
-  --serif-cjk: 'Songti SC', 'STSong', 'Noto Serif CJK SC', serif;
+  --serif-cjk: 'Songti SC', 'Source Han Serif SC', 'Noto Serif CJK SC', 'STSong', 'SimSun', serif;
   --sans: 'IBM Plex Sans', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
   --page: min(1280px, calc(100vw - 48px));
 }
@@ -30,6 +30,9 @@ body {
   font-family: var(--serif-cjk);
   font-size: 18px;
   line-height: 1.82;
+  font-kerning: normal;
+  font-synthesis: none;
+  font-feature-settings: 'kern' 1, 'palt' 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -165,7 +168,7 @@ a { color: inherit; }
   font-size: clamp(52px, 7.2vw, 110px);
   font-weight: 400;
   line-height: 1.15;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.035em;
 }
 
 .home-hero--en .home-hero__title h1 {
@@ -436,7 +439,8 @@ html[lang="en"] .manifesto blockquote {
   font-size: clamp(48px, 6.2vw, 92px);
   font-weight: 400;
   line-height: 1.22;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.025em;
+  text-wrap: balance;
 }
 
 html[lang="en"] .article-hero h1 {
@@ -545,23 +549,40 @@ html[lang="en"] .article-hero h1 {
 
 .article-body {
   grid-column: 2;
-  max-width: 720px;
+  max-width: 680px;
   min-width: 0;
-  font-size: 19px;
-  line-height: 2;
+  font-size: 20px;
+  line-height: 2.12;
+  letter-spacing: 0.025em;
+  hanging-punctuation: first last;
+  text-autospace: normal;
+  text-spacing-trim: trim-start;
 }
 
 .article-body--en {
+  max-width: 720px;
   font-family: var(--serif-latin);
   font-size: 22px;
   line-height: 1.72;
+  letter-spacing: normal;
 }
 
 .article-body > p { margin: 0 0 1.7em; }
 
+html[lang="zh-CN"] .article-body > p {
+  text-align: justify;
+  text-justify: inter-ideograph;
+  text-wrap: pretty;
+}
+
 .article-body > p:first-child {
   font-size: 1.25em;
   color: var(--paper-deep);
+}
+
+html[lang="zh-CN"] .article-body > p:first-child {
+  line-height: 2;
+  letter-spacing: 0.035em;
 }
 
 .article-body h2 {
@@ -571,7 +592,8 @@ html[lang="en"] .article-hero h1 {
   font-size: 32px;
   font-weight: 400;
   line-height: 1.45;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
 }
 
 .article-body--en h2 {
@@ -588,6 +610,12 @@ html[lang="en"] .article-hero h1 {
   border-left: 1px solid var(--tea);
   font-size: 1.22em;
   line-height: 1.8;
+}
+
+html[lang="zh-CN"] .article-body blockquote {
+  letter-spacing: 0.035em;
+  text-align: justify;
+  text-justify: inter-ideograph;
 }
 
 .article-body blockquote p { margin: 0; }
@@ -658,6 +686,7 @@ html[lang="en"] .article-hero h1 {
   color: var(--ash);
   font-size: 13px;
   line-height: 1.7;
+  letter-spacing: 0.035em;
 }
 
 .story-photo--portrait figcaption { margin-left: 0; }
@@ -801,7 +830,7 @@ html[lang="en"] .article-hero h1 {
   .article-meta { gap: 10px 18px; }
 
   .article-shell { padding: 70px 0 110px; }
-  .article-body { font-size: 17px; line-height: 1.95; }
+  .article-body { font-size: 18px; line-height: 2.05; letter-spacing: 0.018em; }
   .article-body--en { font-size: 20px; line-height: 1.62; }
   .article-body h2 { margin-top: 5rem; font-size: 28px; }
   .article-body--en h2 { font-size: 36px; }
